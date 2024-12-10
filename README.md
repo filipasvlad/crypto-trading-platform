@@ -71,13 +71,3 @@ Manages user authentication.
 
 - **JWT Authentication** is used for securing API endpoints, ensuring that only authenticated users can access certain resources like balance or portfolio.
 - The backend uses **Spring Security** to manage authentication and authorization.
-
-## Database Initialization
-
-The application automatically creates necessary tables and relationships upon the first run. Predefined cryptocurrencies can be added to the database using a custom SQL script. The application ensures that cryptocurrencies are inserted only if they do not already exist in the database.
-
----
-
-**Contact**
-
-For any questions, feel free to reach out to [your_email@example.com].
