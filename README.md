@@ -20,7 +20,6 @@ The application is built with **Spring Boot** and uses **PostgreSQL** as the dat
 - **Spring Security** - For user authentication and authorization.
 - **JPA/Hibernate** - ORM for interacting with the PostgreSQL database.
 - **PostgreSQL** - Database for storing user data, transactions, and portfolio information.
-- **DTOs (Data Transfer Objects)** - Used to ensure consistency and separation of concerns in data handling.
 
 ## API Endpoints
 
