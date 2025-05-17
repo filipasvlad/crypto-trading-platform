@@ -14,3 +14,8 @@ spring:
   sql:
     init:
       mode: always
+  output:
+    ansi:
+      enabled: always
+jwt:
+  key: 9F5EGE/NCLm9NvmLrbC+m1k8K9U/nCBP0Wg9d4gQeVOYxDkzEPxvF7qj7lZq6W2zVOa63vdVCXE9q8pS3l9ITQ==

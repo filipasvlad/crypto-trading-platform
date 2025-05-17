@@ -20,15 +20,15 @@ public class BalanceService {
     private final BalanceRepository balanceRepository;
     private final UserRepository userRepository;
 
-    public BalanceDto getBalance(Long userId) {
-        Balance balance = balanceRepository.findByUserId(userId)
-                .orElseThrow(() -> new BadBalanceRequestException("Balance not found for the specified user ID: " + userId));
+    public BalanceDto getBalance(String username) {
+        Balance balance = balanceRepository.findByUserUsername(username)
+                .orElseThrow(() -> new BadBalanceRequestException("Balance not found for the specified username: " + username));
         return entityToDto(balance);
     }
 
-    public BalanceDto addBalance(Long userId, Double amount) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BadBalanceRequestException("User not found with the specified ID: " + userId));
+    public BalanceDto addBalance(String username, Double amount) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new BadBalanceRequestException("User not found with the specified username: " + username));
         if(amount <= 0){
             throw new BadBalanceRequestException("Amount must be greater than zero.");
         }
@@ -38,9 +38,9 @@ public class BalanceService {
         return entityToDto(savedBalance);
     }
 
-    public BalanceDto withdrawBalance(Long userId, Double amount) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BadBalanceRequestException("User not found with the specified ID: " + userId));
+    public BalanceDto withdrawBalance(String username, Double amount) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new BadBalanceRequestException("User not found with the specified username: " + username));
         if(amount <= 0){
             throw new BadBalanceRequestException("Amount must be greater than zero.");
         }
@@ -53,7 +53,7 @@ public class BalanceService {
         return entityToDto(savedBalance);
     }
 
-    public Optional<Balance> findByUserId(Long userId) {
-        return balanceRepository.findByUserId(userId);
+    public Optional<Balance> findByUsername(String username) {
+        return balanceRepository.findByUserUsername(username);
     }
 }

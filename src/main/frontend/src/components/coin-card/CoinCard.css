@@ -1,4 +1,4 @@
-.card-wrapper{
+.card-wrapper {
     width: 800px;
     height: 100px;
     background: #ffffff;
@@ -12,7 +12,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.coin-info{
+.coin-info {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -22,13 +22,13 @@
     margin-right: 5%;
 }
 
-.coin-icon{
+.coin-icon {
     height: 80px;
     width: auto;
 }
 
 
-.coin-prices{
+.coin-prices {
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -36,7 +36,7 @@
     width: 40%;
 }
 
-a{
+a {
     font-size: 25px;
     text-decoration: none;
     color: #af00e8;
@@ -47,17 +47,17 @@ a{
 }
 
 
-.coin-buy, .coin-sell{
-    display: flex; /* Aliniere verticală între link și preț */
-    flex-direction: column; /* Buy/Sell și preț sunt afișate unul sub altul */
-    align-items: center; /* Centrează textul */
-    gap: 10px; /* Spațiu între link și preț */
+.coin-buy, .coin-sell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-h3{
+h3 {
     font-size: 25px;
 }
 
-p{
+p {
     font-size: 20px;
 }

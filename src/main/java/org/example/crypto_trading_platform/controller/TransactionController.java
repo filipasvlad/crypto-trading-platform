@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/api/transaction")
 @RequiredArgsConstructor
 public class TransactionController {
 
@@ -22,11 +22,11 @@ public class TransactionController {
 
     @PostMapping("/buy")
     public TransactionDto buyCrypto(@RequestParam String cryptoCurrencyId, @RequestParam Double quantity) {
-        return transactionFacade.buyCrypto(SecurityUtil.getCurrentUserId(), cryptoCurrencyId, quantity);
+        return transactionFacade.buyCrypto(SecurityUtil.getCurrentUsername(), cryptoCurrencyId, quantity);
     }
 
     @PostMapping("/sell")
     public TransactionDto sellCrypto(@RequestParam String cryptoCurrencyId, @RequestParam Double quantity) {
-        return transactionFacade.sellCrypto(SecurityUtil.getCurrentUserId(), cryptoCurrencyId, quantity);
+        return transactionFacade.sellCrypto(SecurityUtil.getCurrentUsername(), cryptoCurrencyId, quantity);
     }
 }

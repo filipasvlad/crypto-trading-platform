@@ -1,9 +1,8 @@
 import React from "react";
 import "./SignupForm.css"
 
-
-function SignupForm(){
-    return(
+function SignupForm() {
+    return (
         <div className="container">
             <h1>Create a new account</h1>
             <div className="input-section">

@@ -9,7 +9,7 @@ public class TransacionConverter {
     public static TransactionDto entityToDto(Transaction transaction){
         return new TransactionDto(
                 transaction.getId(),
-                transaction.getUser().getId(),
+                transaction.getUser().getUsername(),
                 transaction.getCryptoCurrency().getId(),
                 transaction.getQuantity(),
                 transaction.getPriceAtPurchase(),

@@ -17,7 +17,7 @@ public class Balance {
     private Double amount;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_username", nullable = false, unique = true)
     private User user;
 
     public Balance() {

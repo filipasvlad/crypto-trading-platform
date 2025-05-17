@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/crypto")
+@RequestMapping("/api/crypto")
 @RequiredArgsConstructor
 public class CryptoCurrencyController {
 

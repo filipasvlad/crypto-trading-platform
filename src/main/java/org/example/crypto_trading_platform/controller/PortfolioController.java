@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/portfolio")
+@RequestMapping("/api/portfolio")
 @RequiredArgsConstructor
 public class PortfolioController {
 
@@ -18,17 +18,17 @@ public class PortfolioController {
 
     @GetMapping
     public List<PortfolioItemDto> getPortfolioItemsByPortfolio() {
-        return portfolioService.getPortfolioItemsByUserId(SecurityUtil.getCurrentUserId());
+        return portfolioService.getPortfolioItemsByUserId(SecurityUtil.getCurrentUsername());
     }
 
     @PostMapping("/add")
     public PortfolioDto addItemToPortfolio(@RequestParam String cryptoCurrencyId, @RequestParam Double quantity) {
-        return portfolioService.addItemToPortfolio(SecurityUtil.getCurrentUserId(), cryptoCurrencyId, quantity);
+        return portfolioService.addItemToPortfolio(SecurityUtil.getCurrentUsername(), cryptoCurrencyId, quantity);
     }
 
     @PostMapping("/remove")
     public PortfolioDto removeItemFromPortfolio(@RequestParam String cryptoCurrencyId, @RequestParam Double quantity) {
-        return portfolioService.removeItemFromPortfolio(SecurityUtil.getCurrentUserId(), cryptoCurrencyId, quantity);
+        return portfolioService.removeItemFromPortfolio(SecurityUtil.getCurrentUsername(), cryptoCurrencyId, quantity);
     }
 
 }

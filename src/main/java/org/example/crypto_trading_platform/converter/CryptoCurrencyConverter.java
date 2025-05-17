@@ -10,7 +10,8 @@ public class CryptoCurrencyConverter {
     public static CryptoCurrencyDto entityToDto(CryptoCurrency cryptoCurrency){
         return new CryptoCurrencyDto(
                 cryptoCurrency.getId(),
-                cryptoCurrency.getSymbol()
+                cryptoCurrency.getSymbol(),
+                cryptoCurrency.getPrice()
         );
     }
 

@@ -1,8 +1,8 @@
 import React from "react"
 import "./CoinCard.css"
 
-function CoinCard(props){
-    return(
+function CoinCard(props) {
+    return (
         <div className="card-wrapper">
             <div className="coin-info">
                 <img src={props.item.coinIconLink} className="coin-icon"/>

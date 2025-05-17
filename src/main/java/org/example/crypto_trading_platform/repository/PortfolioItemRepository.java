@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PortfolioItemRepository extends JpaRepository<PortfolioItem, Long> {
-    List<PortfolioItem> findByPortfolio_UserId(Long userId);
-    Optional<PortfolioItem> findByPortfolio_UserIdAndCryptoCurrencyId(Long userId, String cryptoCurrencyId);
+    List<PortfolioItem> findByPortfolio_UserUsername(String username);
+    Optional<PortfolioItem> findByPortfolio_UserUsernameAndCryptoCurrencyId(String username, String cryptoCurrencyId);
 }

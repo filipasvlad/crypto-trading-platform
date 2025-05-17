@@ -1,14 +1,14 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import "./LoginForm.css"
 
-function LoginForm(){
+function LoginForm() {
     const navigate = useNavigate();
-    return(
+    return (
         <div className="container">
             <h1>Welcome back!</h1>
             <p>Access your existing account</p>
-            <form method="POST" action="http://localhost:8080/auth/login">
+            <form method="POST" action="/api/login">
                 <div className="input-section">
                     <div className="input-row">
                         <label>EMAIL</label>

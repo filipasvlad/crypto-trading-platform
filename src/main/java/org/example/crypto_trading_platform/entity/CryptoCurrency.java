@@ -19,6 +19,8 @@ public class CryptoCurrency {
     @Column(unique = true)
     private String symbol;
 
+    private Double price;
+
     @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PortfolioItem> portfolioItems;
 

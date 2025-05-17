@@ -28,9 +28,9 @@ public class TransactionFacade {
     private final PortfolioService portfolioService;
 
     @Transactional
-    public TransactionDto buyCrypto(Long userId, String cryptoCurrencyId, Double quantity) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BadTransactionRequestException("User not found for the specified ID: " + userId));
+    public TransactionDto buyCrypto(String username, String cryptoCurrencyId, Double quantity) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new BadTransactionRequestException("User not found for the specified username: " + username));
 
         CryptoCurrency cryptoCurrency = cryptoCurrencyService.findById(cryptoCurrencyId)
                 .orElseThrow(() -> new BadTransactionRequestException("CryptoCurrency not found for the given ID: " + cryptoCurrencyId));
@@ -38,8 +38,8 @@ public class TransactionFacade {
         Double priceAtPurchase = cryptoCurrencyService.getCurrentPrice(cryptoCurrencyId);
         Double totalAmountSpent = priceAtPurchase * quantity;
 
-        Balance userBalance = balanceService.findByUserId(userId)
-                .orElseThrow(() -> new BadTransactionRequestException("Balance not found for the specified user ID: " + userId));
+        Balance userBalance = balanceService.findByUsername(username)
+                .orElseThrow(() -> new BadTransactionRequestException("Balance not found for the specified user username: " + username));
 
         if (userBalance.getAmount() < totalAmountSpent) {
             throw new BadTransactionRequestException("Insufficient funds in the balance for the requested transaction.");
@@ -54,15 +54,15 @@ public class TransactionFacade {
                 .build();
 
         transactionRepository.save(transaction);
-        balanceService.withdrawBalance(userId, totalAmountSpent);
-        portfolioService.addItemToPortfolio(userId, cryptoCurrencyId, quantity);
+        balanceService.withdrawBalance(username, totalAmountSpent);
+        portfolioService.addItemToPortfolio(username, cryptoCurrencyId, quantity);
         return entityToDto(transaction);
     }
 
     @Transactional
-    public TransactionDto sellCrypto(Long userId, String cryptoCurrencyId, Double quantity) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BadTransactionRequestException("User not found for the specified ID: " + userId));
+    public TransactionDto sellCrypto(String username, String cryptoCurrencyId, Double quantity) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new BadTransactionRequestException("User not found for the specified username: " + username));
 
         CryptoCurrency cryptoCurrency = cryptoCurrencyService.findById(cryptoCurrencyId)
                 .orElseThrow(() -> new BadTransactionRequestException("CryptoCurrency not found for the given ID: " + cryptoCurrencyId));
@@ -70,7 +70,7 @@ public class TransactionFacade {
         Double priceAtSale = cryptoCurrencyService.getCurrentPrice(cryptoCurrencyId);
         Double totalAmountReceived = priceAtSale * quantity;
 
-        PortfolioItem portfolioItem = portfolioService.getPortfolioItem(userId, cryptoCurrencyId)
+        PortfolioItem portfolioItem = portfolioService.getPortfolioItem(username, cryptoCurrencyId)
                 .orElseThrow(() -> new BadTransactionRequestException("User does not have the specified cryptocurrency in their portfolio"));
 
         if (portfolioItem.getQuantity() < quantity) {
@@ -87,9 +87,9 @@ public class TransactionFacade {
 
         transactionRepository.save(transaction);
 
-        balanceService.addBalance(userId, totalAmountReceived);
+        balanceService.addBalance(username, totalAmountReceived);
 
-        portfolioService.removeItemFromPortfolio(userId, cryptoCurrencyId, quantity);
+        portfolioService.removeItemFromPortfolio(username, cryptoCurrencyId, quantity);
 
         return entityToDto(transaction);
     }

@@ -1,16 +1,22 @@
 package org.example.crypto_trading_platform.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.example.crypto_trading_platform.dto.CryptoCurrencyDto;
 import org.example.crypto_trading_platform.entity.CryptoCurrency;
 import org.example.crypto_trading_platform.exception.BadCryptoCurrencyRequestException;
 import org.example.crypto_trading_platform.repository.CryptoCurrencyRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.example.crypto_trading_platform.converter.CryptoCurrencyConverter.entityListToDtoList;
@@ -24,6 +30,8 @@ public class CryptoCurrencyService {
     private static final String API_URL = "https://api.coingecko.com/api/v3/simple/price";
 
     private final RestTemplate restTemplate;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public Double getCurrentPrice(String id){
         if (!cryptoCurrencyRepository.existsById(id)){
@@ -48,5 +56,34 @@ public class CryptoCurrencyService {
 
     public Optional<CryptoCurrency> findById(String cryptoCurrencyId) {
         return cryptoCurrencyRepository.findById(cryptoCurrencyId);
+    }
+
+    @PostConstruct
+    @Scheduled(fixedRate = 60000)
+    public void updateAllPrices() {
+        try {
+            List<CryptoCurrency> cryptoCurrencyList = cryptoCurrencyRepository.findAll();
+            var url = new StringBuilder("https://api.coingecko.com/api/v3/simple/price?ids=");
+            for (var cryptoCurrency : cryptoCurrencyList) {
+                url.append(cryptoCurrency.getId()).append(",");
+            }
+            url.deleteCharAt(url.length() - 1);
+            url.append("&vs_currencies=usd");
+            String json = restTemplate.getForObject(url.toString(), String.class);
+            Map<String, Map<String, Double>> data = objectMapper.readValue(json, new TypeReference<>() {
+            });
+            for (var entry : data.entrySet()) {
+                String id = entry.getKey();
+                Double price = entry.getValue().get("usd");
+
+                var coin = cryptoCurrencyRepository.findById(id).orElseThrow(() -> new BadCryptoCurrencyRequestException("CryptoCurrency does not exist for the given ID: " + id));
+
+                coin.setPrice(Objects.requireNonNullElse(price, -1.0));
+                cryptoCurrencyRepository.save(coin);
+            }
+            System.out.println("Updated prices for " + data.size() + " coins.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

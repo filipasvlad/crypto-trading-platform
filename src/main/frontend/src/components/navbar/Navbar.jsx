@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import "./Navbar.css";
+import {useAuth} from "../../context/AuthContext.jsx";
 
 function Navbar() {
+    const {isAuthenticated} = useAuth();
+
     return (
         <nav className="navbar">
             <div className="navbar-container">
@@ -20,16 +23,29 @@ function Navbar() {
                             Coin List
                         </Link>
                     </li>
-                    <li className="navbar-item">
-                        <Link to="/login" className="navbar-link">
-                            Login
-                        </Link>
-                    </li>
-                    <li className="navbar-item">
-                        <Link to="/register" className="navbar-link">
-                            Register
-                        </Link>
-                    </li>
+                    {isAuthenticated ? (
+                        <>
+                            <li className="navbar-item">
+                                <Link to="/login" className="navbar-link">
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="navbar-item">
+                                <Link to="/register" className="navbar-link">
+                                    Register
+                                </Link>
+                            </li>
+                        </>
+                    ) : (
+                        <li className="navbar-item">
+                            <img
+                                src="/icons/bitcoin.png"
+                                alt="User"
+                                className="navbar-avatar"
+                                style={{width: "32px", height: "32px", borderRadius: "50%"}}
+                            />
+                        </li>
+                    )}
                 </ul>
             </div>
         </nav>
