@@ -1,0 +1,67 @@
+/* Stilizare de bază pentru navbar */
+.navbar {
+    background-color: #221366; /* Culoarea fundalului */
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    display: flex; /* Face ca elementele să fie afișate pe un singur rând */
+    justify-content: space-between; /* Spațiu egal între logo și meniul de navigare */
+    align-items: center; /* Centrează elementele vertical */
+    margin: 0 auto; /* Centrează conținutul pe ecran */
+}
+
+.navbar-logo {
+    color: #fff; /* Culoarea textului */
+    font-size: 1.5rem; /* Dimensiunea fontului */
+    font-weight: bold; /* Font mai îngroșat */
+    text-decoration: none; /* Elimină sublinierea */
+}
+
+.navbar-menu {
+    display: flex; /* Afișează elementele meniului pe orizontală */
+    list-style: none; /* Elimină marcatorii de tip listă */
+    margin: 0; /* Elimină spațiul din exterior */
+    padding: 0; /* Elimină spațiul interior */
+}
+
+.navbar-item {
+    margin: 0 15px; /* Spațiu între elementele meniului */
+}
+
+.navbar-link {
+    color: #fff; /* Culoarea textului link-urilor */
+    text-decoration: none; /* Elimină sublinierea link-urilor */
+    font-size: 1rem; /* Dimensiunea textului */
+    transition: color 0.3s; /* Adaugă o tranziție lină pentru schimbarea culorii */
+}
+
+.navbar-link:hover {
+    color: #00d1b2; /* Culoarea textului la hover */
+}
+
+/* Responsivitate */
+@media (max-width: 768px) {
+    .navbar-menu {
+        flex-direction: column;
+        align-items: center;
+        background-color: #292945;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        border-radius: 8px;
+        display: none;
+    }
+
+    .navbar-menu.active {
+        display: flex;
+    }
+
+    .navbar-item {
+        margin: 10px 0;
+    }
+}

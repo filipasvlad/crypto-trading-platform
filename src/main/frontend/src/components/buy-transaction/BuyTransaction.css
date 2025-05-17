@@ -1,0 +1,61 @@
+.container{
+    width: 400px;
+    margin: 10% auto;
+    text-align: center;
+}
+
+.input-section{
+    font-size: 20px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.exchange-rate {
+    font-size: 1rem;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+label{
+    width: 25%;
+    text-align: left;
+}
+
+input{
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.currency{
+    width: 20%;
+    text-align: right;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.buy-button {
+    width: 100%;
+    background-color: #af00e8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .buy-button:hover {
+    background-color: #8b00b9;
+  }
