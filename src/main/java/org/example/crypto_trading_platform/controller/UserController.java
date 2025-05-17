@@ -20,7 +20,6 @@ public class UserController {
     @PostMapping("/register")
     public UserDto register(@RequestBody UserRegisterDto userRegisterDTO) {
         return userService.register(userRegisterDTO);
-
     }
 
     @PostMapping("/login")

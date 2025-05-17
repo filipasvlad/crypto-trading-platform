@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.local-docker-run
+/node_modules/
