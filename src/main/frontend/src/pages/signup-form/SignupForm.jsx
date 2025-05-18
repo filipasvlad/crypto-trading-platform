@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "./SignupForm.css"
+import styles from "./SignupForm.module.css"
 
 
 function SignupForm() {
@@ -45,27 +45,27 @@ function SignupForm() {
 
 
     return (
-        <div className="container">
+        <div className={styles.container}>
             <h1>Create a new account</h1>
-            <form className="input-section" onSubmit={handleSubmit}>
-                <div className="input-row">
+            <form className={styles.inputSection} onSubmit={handleSubmit}>
+                <div className={styles.inputRow}>
                     <label>USERNAME</label>
-                    <input type="text" className="input" value={username}
+                    <input type="text" className={styles.input} value={username}
                            onChange={(e) => setUsername(e.target.value)}></input>
                 </div>
-                <div className="input-row">
+                <div className={styles.inputRow}>
                     <label>PASSWORD</label>
-                    <input type="password" className="input" value={password}
+                    <input type="password" className={styles.input} value={password}
                            onChange={(e) => setPassword(e.target.value)}></input>
                 </div>
-                <div className="input-row">
+                <div className={styles.inputRow}>
                     <label>CONFIRM PASSWORD</label>
-                    <input type="password" className="input" value={confirmPassword}
+                    <input type="password" className={styles.input} value={confirmPassword}
                            onChange={(e) => setConfirmPassword(e.target.value)}></input>
                 </div>
                 {error && <p style={{color: "red"}}>{error}</p>}
                 {success && <p style={{color: "green"}}>Account created successfully!</p>}
-                <button type="submit" className="signup-button">Register</button>
+                <button type="submit" className={styles.signupButton}>Register</button>
             </form>
             <p>Already have an account? <a href="/login">Login here!</a></p>
         </div>

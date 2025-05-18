@@ -11,7 +11,8 @@ public class CryptoCurrencyConverter {
         return new CryptoCurrencyDto(
                 cryptoCurrency.getId(),
                 cryptoCurrency.getSymbol(),
-                cryptoCurrency.getPrice()
+                cryptoCurrency.getBuyPrice(),
+                cryptoCurrency.getSellPrice()
         );
     }
 

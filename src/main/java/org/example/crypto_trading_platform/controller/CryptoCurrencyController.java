@@ -3,6 +3,7 @@ package org.example.crypto_trading_platform.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.crypto_trading_platform.dto.CryptoCurrencyDto;
+import org.example.crypto_trading_platform.entity.CryptoCurrency;
 import org.example.crypto_trading_platform.service.CryptoCurrencyService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,8 @@ public class CryptoCurrencyController {
         return cryptoCurrencyService.getAllCryptoCurrencies();
     }
 
-    @GetMapping("/price/{symbol}")
-    public Double getPrice(@PathVariable String symbol) {
-        return cryptoCurrencyService.getCurrentPrice(symbol);
+    @GetMapping("/{symbol}")
+    public CryptoCurrencyDto getCryptoCurrency(@PathVariable String symbol) {
+        return cryptoCurrencyService.getCryptoCurrency(symbol);
     }
 }

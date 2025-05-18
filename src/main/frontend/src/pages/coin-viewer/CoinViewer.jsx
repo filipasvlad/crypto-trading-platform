@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./CoinViewer.css"
+import styles from "./CoinViewer.module.css"
 import CoinCard from "../../components/coin-card/CoinCard";
 
 function CoinViewer() {
@@ -10,11 +10,12 @@ function CoinViewer() {
     }
 
     const transformCoin = (raw) => {
+        console.log(raw);
         return {
             name: capitalize(raw.id),
             symbol: raw.symbol.toUpperCase(),
-            buyPrice: formatPrice(raw.price),
-            sellPrice: formatPrice(raw.price * 9 / 10),
+            buyPrice: formatPrice(raw.buyPrice),
+            sellPrice: formatPrice(raw.sellPrice),
             coinIconLink: `/icons/${raw.id}.png`
         };
     };
@@ -43,8 +44,8 @@ function CoinViewer() {
     console.log(coins);
 
     return (
-        <div className="coin-list-cointainer">
-            <div className="coin-list-grid">
+        <div>
+            <div>
                 {coins.map((coin, index) => (
                     <CoinCard key={index} item={coin}/>
                 ))}

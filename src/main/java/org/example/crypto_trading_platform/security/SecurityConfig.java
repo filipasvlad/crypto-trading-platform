@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/api/register", "/api/crypto", "/api/crypto/price/{symbol}").permitAll()
+                        .requestMatchers("/login", "/api/register", "/api/crypto", "/api/crypto/{symbol}", "/api/auth/check").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

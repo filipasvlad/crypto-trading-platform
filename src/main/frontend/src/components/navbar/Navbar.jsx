@@ -1,47 +1,47 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "./Navbar.css";
+import styles from "./Navbar.module.css";
 import {useAuth} from "../../context/AuthContext.jsx";
 
 function Navbar() {
     const {isAuthenticated} = useAuth();
 
     return (
-        <nav className="navbar">
-            <div className="navbar-container">
-                <Link to="/" className="navbar-logo">
+        <nav className={styles.navbar}>
+            <div className={styles.navbarContainer}>
+                <Link to="/" className={styles.navbarLogo}>
                     CryptoExchange
                 </Link>
-                <ul className="navbar-menu">
-                    <li className="navbar-item">
-                        <Link to="/" className="navbar-link">
+                <ul className={styles.navbarMenu}>
+                    <li className={styles.navbarItem}>
+                        <Link to="/" className={styles.navbarLink}>
                             Home
                         </Link>
                     </li>
-                    <li className="navbar-item">
-                        <Link to="/coin-list" className="navbar-link">
+                    <li className={styles.navbarItem}>
+                        <Link to="/coin-list" className={styles.navbarLink}>
                             Coin List
                         </Link>
                     </li>
-                    {isAuthenticated ? (
+                    {!isAuthenticated ? (
                         <>
-                            <li className="navbar-item">
-                                <Link to="/login" className="navbar-link">
+                            <li className={styles.navbarItem}>
+                                <Link to="/login" className={styles.navbarLink}>
                                     Login
                                 </Link>
                             </li>
-                            <li className="navbar-item">
-                                <Link to="/register" className="navbar-link">
+                            <li className={styles.navbarItem}>
+                                <Link to="/register" className={styles.navbarLink}>
                                     Register
                                 </Link>
                             </li>
                         </>
                     ) : (
-                        <li className="navbar-item">
+                        <li className={styles.navbarItem}>
                             <img
                                 src="/icons/bitcoin.png"
                                 alt="User"
-                                className="navbar-avatar"
+                                className={styles.navbarAvatar}
                                 style={{width: "32px", height: "32px", borderRadius: "50%"}}
                             />
                         </li>

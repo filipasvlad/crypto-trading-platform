@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.example.crypto_trading_platform.converter.CryptoCurrencyConverter.entityListToDtoList;
+import static org.example.crypto_trading_platform.converter.CryptoCurrencyConverter.entityToDto;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,12 @@ public class CryptoCurrencyService {
     private final RestTemplate restTemplate;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public CryptoCurrencyDto getCryptoCurrency(String symbol) {
+        var coin = cryptoCurrencyRepository.findBySymbol(symbol).orElseThrow(() ->
+                new BadCryptoCurrencyRequestException("CryptoCurrency does not exist for the given symbol: " + symbol));
+        return entityToDto(coin);
+    }
 
     public Double getCurrentPrice(String id){
         if (!cryptoCurrencyRepository.existsById(id)){
@@ -63,6 +70,7 @@ public class CryptoCurrencyService {
     public void updateAllPrices() {
         try {
             List<CryptoCurrency> cryptoCurrencyList = cryptoCurrencyRepository.findAll();
+            // TODO: Reformat with stream
             var url = new StringBuilder("https://api.coingecko.com/api/v3/simple/price?ids=");
             for (var cryptoCurrency : cryptoCurrencyList) {
                 url.append(cryptoCurrency.getId()).append(",");
@@ -77,8 +85,14 @@ public class CryptoCurrencyService {
                 Double price = entry.getValue().get("usd");
 
                 var coin = cryptoCurrencyRepository.findById(id).orElseThrow(() -> new BadCryptoCurrencyRequestException("CryptoCurrency does not exist for the given ID: " + id));
-
-                coin.setPrice(Objects.requireNonNullElse(price, -1.0));
+                if (price != null) {
+                    coin.setBuyPrice(price);
+                    coin.setSellPrice(price * 9 / 10);
+                }
+                else {
+                    coin.setBuyPrice(-1.0);
+                    coin.setSellPrice(-1.0);
+                }
                 cryptoCurrencyRepository.save(coin);
             }
             System.out.println("Updated prices for " + data.size() + " coins.");
