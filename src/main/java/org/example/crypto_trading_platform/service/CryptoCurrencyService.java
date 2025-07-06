@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.example.crypto_trading_platform.converter.CryptoCurrencyConverter.entityListToDtoList;
 import static org.example.crypto_trading_platform.converter.CryptoCurrencyConverter.entityToDto;
@@ -58,6 +55,8 @@ public class CryptoCurrencyService {
 
     public List<CryptoCurrencyDto> getAllCryptoCurrencies() {
         List<CryptoCurrency> cryptoCurrencyList = cryptoCurrencyRepository.findAll();
+        cryptoCurrencyList.sort(Comparator.comparing(CryptoCurrency::getOrderIndex, Comparator.nullsLast(Integer::compareTo)));
+        System.out.println(cryptoCurrencyList);
         return entityListToDtoList(cryptoCurrencyList);
     }
 

@@ -17,7 +17,7 @@ function CoinCard(props) {
                     <p>{props.item.buyPrice}</p>
                 </div>
                 <div className={styles.coinSell}>
-                    <a href="/">Sell</a>
+                    <a href={`/sell/${props.item.symbol.toLowerCase()}`}>Sell</a>
                     <p>{props.item.sellPrice}</p>
                 </div>
 

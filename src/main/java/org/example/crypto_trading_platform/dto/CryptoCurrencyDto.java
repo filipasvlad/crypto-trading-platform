@@ -4,6 +4,7 @@ public record CryptoCurrencyDto(
         String id,
         String symbol,
         Double buyPrice,
-        Double sellPrice
+        Double sellPrice,
+        Integer orderIndex
 
 ) { }

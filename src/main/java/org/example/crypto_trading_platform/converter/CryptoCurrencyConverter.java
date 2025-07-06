@@ -12,7 +12,8 @@ public class CryptoCurrencyConverter {
                 cryptoCurrency.getId(),
                 cryptoCurrency.getSymbol(),
                 cryptoCurrency.getBuyPrice(),
-                cryptoCurrency.getSellPrice()
+                cryptoCurrency.getSellPrice(),
+                cryptoCurrency.getOrderIndex()
         );
     }
 

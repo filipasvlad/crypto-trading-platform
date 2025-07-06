@@ -23,6 +23,8 @@ public class CryptoCurrency {
 
     private Double sellPrice;
 
+    private Integer orderIndex;
+
     @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PortfolioItem> portfolioItems;
 

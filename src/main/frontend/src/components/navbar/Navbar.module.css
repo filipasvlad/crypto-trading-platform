@@ -1,25 +1,34 @@
+/* ====== BARĂ DE NAVIGARE ====== */
+:root {
+    --nav-bg: #221366;
+    --nav-hover: #00d1b2;
+    --menu-bg: #292945;
+    --menu-hover: #404073;
+}
+
 .navbar {
-    background-color: #221366;
+    background: var(--nav-bg);
     padding: 10px 20px;
     position: sticky;
     top: 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0 0 0 / 0.1);
+    z-index: 100;
 }
 
 .navbarContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto;
 }
 
 .navbarLogo {
     color: #fff;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
 }
 
+/* ====== MENIU PRINCIPAL ====== */
 .navbarMenu {
     display: flex;
     list-style: none;
@@ -28,25 +37,24 @@
 }
 
 .navbarItem {
-    margin: 0 15px;
+    position: relative;
+    margin: auto 15px;
 }
 
 .navbarLink {
     color: #fff;
-    text-decoration: none;
     font-size: 1rem;
+    text-decoration: none;
     transition: color 0.3s;
 }
+.navbarLink:hover { color: var(--nav-hover); }
 
-.navbarLink:hover {
-    color: #00d1b2;
-}
-
+/* ====== RESPONSIVE ≤ 768 px ====== */
 @media (max-width: 768px) {
     .navbarMenu {
         flex-direction: column;
         align-items: center;
-        background-color: #292945;
+        background: var(--menu-bg);
         position: absolute;
         top: 60px;
         right: 20px;
@@ -54,12 +62,66 @@
         border-radius: 8px;
         display: none;
     }
+    .navbarMenu.active { display: flex; }
+    .navbarItem { margin: 10px 0; }
+}
 
-    .navbarMenu.active {
-        display: flex;
-    }
+/* ====== AVATAR + DROPDOWN ====== */
+.avatarWrapper { position: relative; }
 
-    .navbarItem {
-        margin: 10px 0;
-    }
+.navbarAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.navbarAvatar:hover { transform: scale(1.1); }
+
+/* banda invizibilă anti-gap */
+.avatarWrapper::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 6px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: var(--menu-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 0.25);
+    min-width: 150px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s;
+    z-index: 1000;
+}
+
+/* starea deschis (se adaugă clasa .show în React) */
+.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdownItem {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    color: #fff;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+.dropdownItem:hover {
+    background: var(--menu-hover);
+    cursor: pointer;
 }

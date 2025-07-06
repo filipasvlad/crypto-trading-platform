@@ -32,7 +32,7 @@ function SellTransaction() {
         const inputValue = event.target.value;
         setSpendAmount(inputValue);
 
-        const receiveValue = inputValue / coin.buyPrice;
+        const receiveValue = inputValue * coin.sellPrice;
         setReceiveAmount(receiveValue);
     }
 
@@ -48,16 +48,14 @@ function SellTransaction() {
                 <div className={styles.inputRow}>
                     <label>Spend</label>
                     <input type="text" placeholder="Enter amount" value={spendAmount} onChange={handleSpendChange}/>
-                    <img src="/icons/usd.png" alt="USD" className={styles.currencyIcon} />
-                    <span className={styles.currency}>
-                        USD
-                    </span>
+                    <img src={`/icons/${coin.id}.png`} alt={coinSymbol} className={styles.currencyIcon} />
+                    <span className={styles.currency}>{coinSymbol}</span>
                 </div>
                 <div className={styles.inputRow}>
                     <label>Receive</label>
                     <input type="text" value={receiveAmount.toFixed(7)} disabled/>
-                    <img src={`/icons/${coin.id}.png`} alt={coinSymbol} className={styles.currencyIcon} />
-                    <span className={styles.currency}>{coinSymbol}</span>
+                    <img src="/icons/usd.png" alt="USD" className={styles.currencyIcon} />
+                    <span className={styles.currency}>USD</span>
                 </div>
             </div>
             {!isAuthenticated && (
@@ -66,7 +64,7 @@ function SellTransaction() {
                 </p>
             )}
             <button className={styles.buyButton} disabled={isAuthenticated} onClick={isAuthenticated ? null : undefined}>
-                Buy {coinSymbol}
+                Sell {coinSymbol}
             </button>
         </div>
     );

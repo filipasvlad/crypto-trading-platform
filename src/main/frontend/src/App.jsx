@@ -5,6 +5,7 @@ import CoinViewer from './pages/coin-viewer/CoinViewer';
 import BuyTransaction from './pages/buy-transaction/BuyTransaction';
 import LoginForm from './pages/login-form/LoginForm';
 import SignupForm from './pages/signup-form/SignupForm';
+import SellTransaction from "./pages/sell-transaction/SellTransaction.jsx";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/" element={<CoinViewer/>}/>
                 <Route path="/coin-list" element={<CoinViewer/>}/>
                 <Route path="/buy/:symbol" element={<BuyTransaction />} />
+                <Route path="/sell/:symbol" element={<SellTransaction />} />
                 <Route path="/register" element={<SignupForm/>}/>
                 <Route path="/login" element={<LoginForm/>}/>
             </Route>
